@@ -50,7 +50,7 @@ if __name__ == "__main__":
 		print
 
 	beat_length = 60 / 60 #length of one beat in seconds
-	refresh_counter = 16 #every how many beats do we refresh the loop?
+	refresh_counter = 4 #every how many beats do we refresh the loop?
 	early_buffer = 0.5 #thats empirical, sonic pi takes roughly half a second to start playing
 	
 	#here we go, lets play!
@@ -85,8 +85,11 @@ if __name__ == "__main__":
 			playtime = math.fmod(playtime+behind,beat_length)
 		print "we executed, time passed:" ,playtime
 		print time.time() - init
-		print "now we sleep", beat_length- playtime - behind
-		time.sleep(beat_length- playtime-behind) 
+		sleeptime = beat_length- playtime-behind
+		if sleeptime < 0:
+			sleeptime = 0
+		print "now we sleep", sleeptime
+		time.sleep(sleeptime) 
 		print time.time() - init
 		
 		
